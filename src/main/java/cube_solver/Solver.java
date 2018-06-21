@@ -57,8 +57,8 @@ public class Solver {
 		return n;
 	}
 
-	public int traverseRotations(int start, int end, int index, int r, int[][][] c1, int[][][] c2, Figur f1, Figur f2,
-			Rotation r1, Rotation r2, Position p1, Position p2, int n) {
+	public int go(int start, int end, int index, int r, int[][][] c1, int[][][] c2, Figur f1, Figur f2, Rotation r1,
+			Rotation r2, Position p1, Position p2, int n) {
 
 		// replace index with all possible elements. The condition
 		// "end-i+1 >= r-index" makes sure that including one element
@@ -211,13 +211,13 @@ public class Solver {
 	}
 
 	public class Figur {
-		int[][][] fig;
+		int[][][] curRotation;
 		int dep, row, col;
 		ArrayList<Rotation> rotationsArr;
 		ListIterator<Rotation> rotations;
 
 		public Figur(int[][][] startFig) {
-			this.fig = startFig;
+			this.curRotation = startFig;
 			dep = startFig.length;
 			row = startFig[0].length;
 			col = startFig[0][0].length;
@@ -232,12 +232,18 @@ public class Solver {
 		public void calcRotations() {
 			HashSet<Rotation> possibleRots = new HashSet<Rotation>();
 			// LinkedList<Rotation> possibleRots = new LinkedList<Rotation>();
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < 6; i++) {
 				for (int j = 0; j < 4; j++) {
-					possibleRots.add(new Rotation(this.fig, dep, row, col));
+					possibleRots.add(new Rotation(this.curRotation, dep, row, col));
 					this.rotate90();
 				}
 				this.rotate90Horizontal();
+				if (i == 3) {
+					this.rotate90();
+					this.rotate90Horizontal();
+				} else if (i == 4) {
+					this.rotate90Horizontal();
+				}
 			}
 			rotationsArr = new ArrayList<Rotation>(possibleRots);
 			rotations = rotationsArr.listIterator();
@@ -248,14 +254,14 @@ public class Solver {
 			for (int h = 0; h < dep; h++) {
 				for (int j = 0; j < row; j++) {
 					for (int i = 0; i < col; i++) {
-						temp[h][i][row - j - 1] = fig[h][j][i];
+						temp[h][i][row - j - 1] = curRotation[h][j][i];
 					}
 				}
 			}
-			fig = temp;
-			dep = fig.length;
-			row = fig[0].length;
-			col = fig[0][0].length;
+			curRotation = temp;
+			dep = curRotation.length;
+			row = curRotation[0].length;
+			col = curRotation[0][0].length;
 			temp = null; // todo test speed
 		}
 
@@ -264,14 +270,14 @@ public class Solver {
 			for (int h = 0; h < dep; h++) {
 				for (int j = 0; j < row; j++) {
 					for (int i = 0; i < col; i++) {
-						temp[j][dep - h - 1][i] = fig[h][j][i];
+						temp[j][dep - h - 1][i] = curRotation[h][j][i];
 					}
 				}
 			}
-			fig = temp;
-			dep = fig.length;
-			row = fig[0].length;
-			col = fig[0][0].length;
+			curRotation = temp;
+			dep = curRotation.length;
+			row = curRotation[0].length;
+			col = curRotation[0][0].length;
 			temp = null;
 		}
 	}

@@ -11,8 +11,9 @@ public class Main {
 		// TODO Auto-generated method stub
 
 		Solver s = new Solver();
-		int i = s.exec();
-		System.out.println(i);
+
+		 int i = s.exec();
+		 System.out.println(i);
 
 		//
 		// while(s.cube.figurs.hasNext()) {
@@ -22,30 +23,46 @@ public class Main {
 		// }
 
 		// fit test
-		// int[][][] cube = new int[3][3][3];
-		// Cube c = s.cube;
-		// Figur f = s.cube.figurs.next();
-		// Rotation r = f.rotations.next();
-		// r.postions.next();
-		// r.postions.next();
-		// r.postions.next();
-		// r.postions.next();
+//		int[][][] cube = new int[3][3][3];
+//		// Figur f = s.figurs.next();
+//		// Rotation r = f.rotations.next();
+//
+//		int j = 0;
+//		for (Figur f : s.figursArr) {
+//			s.print(f.curRotation);
+//			int i = 0;
+//			for (Rotation r : f.rotationsArr) {
+//				i++;
+//				// s.print(r.fig);
+//			}
+//			System.out.println("Rotations: " + i);
+//			System.out.println();
+//			j += i;
+//		}
+//		System.out.println("i alt: " + j);
+
+		// for (Position p : r.postionsArr) {
+		// cube = new int[3][3][3];
+		// s.fit(cube, r, p);
+		// s.print(cube);
+		// }
+
 		// Position p = r.postions.next();
-		// c.fit(cube, r, p);
-		// c.print(cube);
+		// s.fit(cube, r, p);
+		// s.print(cube);
 		//
-		// f = c.figurs.next();
+		// f = s.figurs.next();
 		// r = f.rotations.next();
 		// r.postions.next();
 		// r.postions.next();
 		// p = r.postions.next();
 		//
 		// int[][][] cube2 = new int[3][3][3];
-		// c.fit(cube2, r, p);
-		// c.print(cube2);
+		// s.fit(cube2, r, p);
+		// s.print(cube2);
 		//
-		// System.out.println(c.fit(cube, r, p));
-		// c.print(cube);
+		// System.out.println(s.fit(cube, r, p));
+		// s.print(cube);
 
 		// System.out.println(p.z + ", " + p.y + ", " + p.x);
 
