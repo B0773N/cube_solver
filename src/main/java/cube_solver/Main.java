@@ -12,8 +12,8 @@ public class Main {
 
 		Solver s = new Solver();
 
-		int i = s.exec();
-		System.out.println(i);
+//		s.easyCubeSolver();
+		s.semi2CubeSolver();
 
 		//
 		// while(s.cube.figurs.hasNext()) {

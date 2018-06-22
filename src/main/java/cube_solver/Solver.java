@@ -1,11 +1,8 @@
 package cube_solver;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -15,6 +12,86 @@ public class Solver {
 	ListIterator<Figur> figurs;
 
 	public Solver() {
+
+	}
+
+	public void semi2CubeSolver() {
+		Figur f1 = new Figur(new int[][][] { { { 1, 1, 1 }, { 1, 0, 0 } } });
+		Rotation r1 = f1.rotationsArr.get(0);
+		f1.rotationsArr = new ArrayList<Rotation>();
+		f1.rotationsArr.add(r1);
+		f1.rotations = f1.rotationsArr.listIterator();
+
+		Figur f2 = new Figur(new int[][][] { { { 2, 2, 2 }, { 0, 2, 0 } } });
+		Figur f3 = new Figur(new int[][][] { { { 3, 3, 0 }, { 0, 3, 3 } } });
+		Figur f4 = new Figur(new int[][][] { { { 4, 4 }, { 4, 0 } } });
+		Figur f5 = new Figur(new int[][][] { { { 5, 5 }, { 5, 0 } }, { { 0, 0 }, { 5, 0 } } });
+		Figur f6 = new Figur(new int[][][] { { { 6, 6 }, { 6, 0 } }, { { 6, 0 }, { 0, 0 } } });
+		Figur f7 = new Figur(new int[][][] { { { 7, 7 }, { 7, 0 } }, { { 0, 7 }, { 0, 0 } } });
+		figursArr = new ArrayList<Figur>(Arrays.asList(new Figur[] { f1, f2, f3, f4, f5, f6, f7 }));
+
+		ArrayList<int[][][]> result = new ArrayList<int[][][]>();
+		i1 = 0;
+		i2 = 0;
+		n = 0;
+		GeneratePermutations(figursArr, result, 0, new int[3][3][3], new int[3][3][3], null, null, null);
+		System.out.println("res: " + result.size());
+		System.out.println("n: " + n);
+		System.out.println("i1: " + i1);
+		System.out.println("i2: " + i2);
+	}
+
+	public void semiCubeSolver() {
+		Figur f1 = new Figur(new int[][][] { { { 1, 1, 1 }, { 1, 0, 0 } }, { { 0, 0, 1 }, { 0, 0, 0 } } });
+		Rotation r1 = f1.rotationsArr.get(0);
+		f1.rotationsArr = new ArrayList<Rotation>();
+		f1.rotationsArr.add(r1);
+		f1.rotations = f1.rotationsArr.listIterator();
+
+		Figur f2 = new Figur(new int[][][] { { { 2, 2, 2 }, { 0, 0, 2 } }, { { 0, 2, 0 }, { 0, 0, 0 } } });
+		Figur f3 = new Figur(new int[][][] { { { 3, 3, 3 }, { 3, 0, 0 } }, { { 0, 0, 0 }, { 3, 0, 0 } } });
+		Figur f4 = new Figur(new int[][][] { { { 0, 4, 4 }, { 4, 4, 0 } }, { { 0, 0, 0 }, { 4, 0, 0 } } });
+		Figur f5 = new Figur(new int[][][] { { { 5, 5, 0 }, { 0, 5, 5 } }, { { 0, 0, 0 }, { 0, 5, 0 } } });
+		Figur f6 = new Figur(new int[][][] { { { 6, 6 } } });
+		figursArr = new ArrayList<Figur>(Arrays.asList(new Figur[] { f1, f2, f3, f4, f5, f6 }));
+
+		ArrayList<int[][][]> result = new ArrayList<int[][][]>();
+		i1 = 0;
+		i2 = 0;
+		n = 0;
+		GeneratePermutations(figursArr, result, 0, new int[3][3][3], new int[3][3][3], null, null, null);
+		System.out.println("res: " + result.size());
+		System.out.println("n: " + n);
+		System.out.println("i1: " + i1);
+		System.out.println("i2: " + i2);
+	}
+
+	public void easyCubeSolver() {
+		Figur f1 = new Figur(new int[][][] { { { 1, 1, 1 }, { 1, 1, 0 }, { 1, 0, 0 } } });
+		Rotation r1 = f1.rotationsArr.get(0);
+		f1.rotationsArr = new ArrayList<Rotation>();
+		f1.rotationsArr.add(r1);
+		f1.rotations = f1.rotationsArr.listIterator();
+
+		Figur f2 = new Figur(new int[][][] { { { 2, 2, 2 }, { 2, 2, 2 }, { 2, 0, 0 } } });
+		Figur f3 = new Figur(new int[][][] { { { 3, 3, 3 }, { 3, 0, 3 } } });
+		Figur f4 = new Figur(new int[][][] { { { 4, 4 }, { 4, 4 } } });
+		Figur f5 = new Figur(new int[][][] { { { 5, 5 }, { 5, 0 } } });
+		Figur f6 = new Figur(new int[][][] { { { 6, 6 } } });
+		figursArr = new ArrayList<Figur>(Arrays.asList(new Figur[] { f1, f2, f3, f4, f5, f6 }));
+
+		ArrayList<int[][][]> result = new ArrayList<int[][][]>();
+		i1 = 0;
+		i2 = 0;
+		n = 0;
+		GeneratePermutations(figursArr, result, 0, new int[3][3][3], new int[3][3][3], null, null, null);
+		System.out.println("res: " + result.size());
+		System.out.println("n: " + n);
+		System.out.println("i1: " + i1);
+		System.out.println("i2: " + i2);
+	}
+
+	public void somaCubeSolver() {
 		Figur f1 = new Figur(new int[][][] { { { 1, 1, 1 }, { 1, 0, 0 } } });
 		Rotation r1 = f1.rotationsArr.get(0);
 		f1.rotationsArr = new ArrayList<Rotation>();
@@ -28,39 +105,22 @@ public class Solver {
 		Figur f6 = new Figur(new int[][][] { { { 6, 6 }, { 0, 6 } }, { { 0, 0 }, { 0, 6 } } });
 		figursArr = new ArrayList<Figur>(Arrays.asList(new Figur[] { f1, f2, f3, f4, f5, f6 }));
 
-		figurs = figursArr.listIterator();
-
-		// ArrayList<int[][][]> cubesArr = new ArrayList<int[][][]>();
-		// for (int i = 0; i < 6; i++) {
-		// cubesArr.add(new int[3][3][3]);
-		// }
-		// cubes = cubesArr.listIterator();
-	}
-
-	public int exec() {
-		// Figur f = figurs.next();
-		// Rotation r = f.rotations.next();
-		// Position p = r.postions.next();
-		// int[][][] c1 = new int[3][3][3];
-		// int i = 0;
-
 		ArrayList<int[][][]> result = new ArrayList<int[][][]>();
 		i1 = 0;
 		i2 = 0;
 		n = 0;
-		int i = GeneratePermutations(figursArr, result, 0, new int[3][3][3], new int[3][3][3], null, null, null);
+		GeneratePermutations(figursArr, result, 0, new int[3][3][3], new int[3][3][3], null, null, null);
 		System.out.println("res: " + result.size());
 		System.out.println("n: " + n);
 		System.out.println("i1: " + i1);
 		System.out.println("i2: " + i2);
-		return i;
 	}
 
 	int i1 = 0;
 	int i2 = 0;
 	int n = 0;
 
-	int GeneratePermutations(List<Figur> figurs, List<int[][][]> result, int depth, int[][][] current, int[][][] next,
+	void GeneratePermutations(List<Figur> figurs, List<int[][][]> result, int depth, int[][][] current, int[][][] next,
 			Figur fig, Rotation rot, Position pos) {
 
 		if (depth == figurs.size()) {
@@ -75,12 +135,11 @@ public class Solver {
 					cloneCube(next, current);
 					if (fit(next, rot, rot.postionsArr.get(j))) {
 						i2++;
-						n += GeneratePermutations(figurs, result, depth + 1, next, new int[3][3][3], null, null, null);
+						GeneratePermutations(figurs, result, depth + 1, next, new int[3][3][3], null, null, null);
 					}
 				}
 			}
 		}
-		return 1;
 	}
 
 	private void cloneCube(int[][][] into, int[][][] from) {
