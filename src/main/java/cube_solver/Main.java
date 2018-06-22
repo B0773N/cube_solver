@@ -12,8 +12,8 @@ public class Main {
 
 		Solver s = new Solver();
 
-		 int i = s.exec();
-		 System.out.println(i);
+		int i = s.exec();
+		System.out.println(i);
 
 		//
 		// while(s.cube.figurs.hasNext()) {
@@ -23,23 +23,23 @@ public class Main {
 		// }
 
 		// fit test
-//		int[][][] cube = new int[3][3][3];
-//		// Figur f = s.figurs.next();
-//		// Rotation r = f.rotations.next();
-//
-//		int j = 0;
-//		for (Figur f : s.figursArr) {
-//			s.print(f.curRotation);
-//			int i = 0;
-//			for (Rotation r : f.rotationsArr) {
-//				i++;
-//				// s.print(r.fig);
-//			}
-//			System.out.println("Rotations: " + i);
-//			System.out.println();
-//			j += i;
-//		}
-//		System.out.println("i alt: " + j);
+		// int[][][] cube = new int[3][3][3];
+		// // Figur f = s.figurs.next();
+		// // Rotation r = f.rotations.next();
+		//
+		// int j = 0;
+		// for (Figur f : s.figursArr) {
+		// s.print(f.curRotation);
+		// int i = 0;
+		// for (Rotation r : f.rotationsArr) {
+		// i++;
+		// // s.print(r.fig);
+		// }
+		// System.out.println("Rotations: " + i);
+		// System.out.println();
+		// j += i;
+		// }
+		// System.out.println("i alt: " + j);
 
 		// for (Position p : r.postionsArr) {
 		// cube = new int[3][3][3];

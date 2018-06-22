@@ -13,18 +13,23 @@ public class Solver {
 	// ListIterator<int[][][]> cubes;
 	ArrayList<Figur> figursArr;
 	ListIterator<Figur> figurs;
-	int fitted;
 
 	public Solver() {
 		Figur f1 = new Figur(new int[][][] { { { 1, 1, 1 }, { 1, 0, 0 } } });
+		Rotation r1 = f1.rotationsArr.get(0);
+		f1.rotationsArr = new ArrayList<Rotation>();
+		f1.rotationsArr.add(r1);
+		f1.rotations = f1.rotationsArr.listIterator();
+
 		Figur f2 = new Figur(new int[][][] { { { 2, 2, 2 }, { 0, 2, 0 } } });
 		Figur f3 = new Figur(new int[][][] { { { 3, 3, 3 }, { 0, 3, 0 } }, { { 3, 0, 0 }, { 0, 0, 0 } } });
 		Figur f4 = new Figur(new int[][][] { { { 4, 4, 4 }, { 0, 4, 0 } }, { { 0, 0, 0 }, { 0, 4, 0 } } });
 		Figur f5 = new Figur(new int[][][] { { { 5, 5, 0 }, { 0, 5, 5 } }, { { 0, 5, 0 }, { 0, 0, 0 } } });
 		Figur f6 = new Figur(new int[][][] { { { 6, 6 }, { 0, 6 } }, { { 0, 0 }, { 0, 6 } } });
 		figursArr = new ArrayList<Figur>(Arrays.asList(new Figur[] { f1, f2, f3, f4, f5, f6 }));
+
 		figurs = figursArr.listIterator();
-		fitted = 0;
+
 		// ArrayList<int[][][]> cubesArr = new ArrayList<int[][][]>();
 		// for (int i = 0; i < 6; i++) {
 		// cubesArr.add(new int[3][3][3]);
@@ -33,102 +38,59 @@ public class Solver {
 	}
 
 	public int exec() {
-		Figur f = figurs.next();
-		Rotation r = f.rotations.next();
-		Position p = r.postions.next();
-		int[][][] c1 = new int[3][3][3];
-		int i = 0;
-		return find(c1, null, 0, f, null, r, null, p, null, i);
+		// Figur f = figurs.next();
+		// Rotation r = f.rotations.next();
+		// Position p = r.postions.next();
+		// int[][][] c1 = new int[3][3][3];
+		// int i = 0;
+
+		ArrayList<int[][][]> result = new ArrayList<int[][][]>();
+		i1 = 0;
+		i2 = 0;
+		n = 0;
+		int i = GeneratePermutations(figursArr, result, 0, new int[3][3][3], new int[3][3][3], null, null, null);
+		System.out.println("res: " + result.size());
+		System.out.println("n: " + n);
+		System.out.println("i1: " + i1);
+		System.out.println("i2: " + i2);
+		return i;
 	}
 
-	public int find2(int start, int end, int index, int u, int[][][] c1, int[][][] c2, Figur f1, Figur f2, Rotation r1,
-			Rotation r2, Position p1, Position p2, int n) {
+	int i1 = 0;
+	int i2 = 0;
+	int n = 0;
 
-		for (int i = start; i < figursArr.size(); i++) {
-			f1 = figursArr.get(i);
-			for (int j = 0; j < f1.rotationsArr.size(); j++) {
-				r1 = f1.rotationsArr.get(j);
-				for (int h = 0; h < f1.rotationsArr.size(); h++) {
-					if (fit(c1, r1, p1))
-						find2(start, end, index, u, c1, c2, f1, f2, r1, r2, p1, p2, n);
+	int GeneratePermutations(List<Figur> figurs, List<int[][][]> result, int depth, int[][][] current, int[][][] next,
+			Figur fig, Rotation rot, Position pos) {
+
+		if (depth == figurs.size()) {
+			result.add(current);
+			print(current);
+		} else {
+			fig = figurs.get(depth);
+			for (int i = 0; i < fig.rotationsArr.size(); i++) {
+				rot = fig.rotationsArr.get(i);
+				for (int j = 0; j < rot.postionsArr.size(); j++) {
+					i1++;
+					cloneCube(next, current);
+					if (fit(next, rot, rot.postionsArr.get(j))) {
+						i2++;
+						n += GeneratePermutations(figurs, result, depth + 1, next, new int[3][3][3], null, null, null);
+					}
 				}
 			}
 		}
-		return n;
+		return 1;
 	}
 
-	public int go(int start, int end, int index, int r, int[][][] c1, int[][][] c2, Figur f1, Figur f2, Rotation r1,
-			Rotation r2, Position p1, Position p2, int n) {
-
-		// replace index with all possible elements. The condition
-		// "end-i+1 >= r-index" makes sure that including one element
-		// at index will make a combination with remaining elements
-		// at remaining positions
-		for (int i = start; i <= end && end - i + 1 >= r - index; i++) {
-			// data[index] = arr[i];
-
-		}
-
-		return 0;
-	}
-
-	public int find(int[][][] c1, int[][][] c2, int y, Figur f1, Figur f2, Rotation r1, Rotation r2, Position p1,
-			Position p2, int n) {
-
-		c2 = c1;
-		if (fit(c2, r1, p1)) {
-			if (y == 6) {
-				print(c2);
+	private void cloneCube(int[][][] into, int[][][] from) {
+		for (int h = 0; h < 3; h++) {
+			for (int j = 0; j < 3; j++) {
+				for (int i = 0; i < 3; i++) {
+					into[h][j][i] = from[h][j][i];
+				}
 			}
-
-			if (r1.postions.hasNext()) {
-				r2 = r1;
-				p2 = r2.postions.next();
-				n += find(c2, c2, y, f1, f2, r2, r2, p2, p2, n);
-			}
-			if (f1.rotations.hasNext()) {
-				f2 = f1;
-				r2 = f2.rotations.next();
-				r2.resetPosPointer();
-				p2 = r2.postions.next();
-				n += find(c2, c2, y, f2, f2, r2, r2, p2, p2, n);
-
-			}
-			if (figurs.hasNext()) {
-				f2 = figurs.next();
-				figurs.previous();
-				f2 = f1;
-				f2.resetRotPointer();
-				r2 = f2.rotations.next();
-				r2.resetPosPointer();
-				p2 = r2.postions.next();
-				n += find(c2, c2, y, f2, f2, r2, r2, p2, p2, n);
-			}
-			n++;
 		}
-
-		if (r1.postions.hasNext()) {
-			p1 = r1.postions.next();
-			n += find(c2, c2, y, f1, f2, r1, r2, p1, p2, n);
-		}
-		if (f1.rotations.hasNext()) {
-			r1 = f1.rotations.next();
-			r1.resetPosPointer();
-			p1 = r1.postions.next();
-			n += find(c2, c2, y, f1, f2, r1, r2, p1, p2, n);
-		}
-		if (figurs.hasNext()) {
-			f1 = figurs.next();
-			f1.resetRotPointer();
-			r1 = f1.rotations.next();
-			r1.resetPosPointer();
-			p1 = r1.postions.next();
-			n += find(c2, c2, y, f1, f2, r1, r2, p1, p2, n);
-
-		}
-		n++;
-
-		return n;
 	}
 
 	public boolean fit(int[][][] cube, Rotation r, Position p) {
